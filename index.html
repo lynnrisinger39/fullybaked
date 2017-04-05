@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+  <title>Fully Baked</title>
+  <link href="https://fonts.googleapis.com/css?family=Share" rel="stylesheet"> 
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+</head> 
+
+
+<body>
+<img id='logo' src="images/fullybakedlogo.png" width="250" height="540" >
+  
+<nav class="nav-collapse main-nav" role="navigation">
+    <ul class="tabs primary-nav">
+        <li class="tabs__item">
+            <a href="#" class="tabs__link">About Us</a>
+        </li>
+        <li class="tabs__item">
+            <a href="#" class="tabs__link">Find Our Cookies</a>
+        </li>
+        <!-- <li class="tabs__item">
+            <a href="#" class="tabs__link">Bulk Order</a>
+        </li>
+        <li class="tabs__item">
+            <a href="#" class="tabs__link">FAQ</a>
+        </li>
+        <li class="tabs__item">
+            <a href="#" class="tabs__link">Contact</a>
+        </li> -->
+    </ul>
+</nav>
+
+
+
+
+
+  <div id="map" style="width: 500px; height: 400px;"></div>
+
+  <script type="text/javascript">
+    var locations = [
+      ['420 Club, Roseburg', 43.2415288, -123.35287110],
+      ['5th LMNT, Bend', 44.1080634,-121.2957569999],
+      ['Alpha Alternative, Keizer', 44.98005,-123.02607],
+      ['Kaleafa, Beaverton', 45.4863008,-122.7890396999],
+      ['Kaleafa, Portland', 45.4789,515,-122.6080152000],
+      ['Attis Trading Co, Gladstone', 45.4930476,-122.6392649],
+      ['Attis Trading Co, Barber Blvd', 45.46888,-122.69255699],
+      ['Attis Trading Co, NE Cully', 45.558736,-122.5979912000],
+      ['Attis Trading Co, Tillamook', 45.471289,-123.8455410000],
+      ['Attis Trading Co, Lincoln City', 44.94426,-124.01960659],
+      ['Bloom Well, Bend',44.0679891,-121.305572200000],
+      ['Bridge City Collective, North Portland',45.554803,-122.667125 ],
+      ['Bridge City Collective, Southeast Portland', 45.5212229,-122.6610503],
+      ['Brothers Cannbis, Portland', 45.5049523,-122.62618179999998],
+      ['Canna and the City, Portland', 45.4970815,-122.67613640000002],
+      ['Cannabend, Bend', 44.0876859,-121.306153999999],
+      ['Cannacopia, Bend', 44.0412014,-121.30348149999998],
+      ['Cannamedicine, Newport', 44.6480997,-124.05431040000002],
+      ['Cannamedicine, Salem', 44.91005,-123.04608000000002],
+      ['Central Organics, Madras', 44.6242537,-121.1306151],
+      ['Chalice Farms, Airport', 45.5632034,-122.52552029999998],
+      ['Chalice Farms, Dundee', 45.27404,-123.01491499999997],
+      ['Chalice Farms, Powell', 45.4977098,-122.60728059999997],
+      ['Chalice Farms, Tigard', 45.3989223,-122.7992271],
+      ['Club Pitbull, Salem',44.9346331,-123.01863450000002],
+      ['Cougar Cannabis, Roseburg', 43.2133619,-123.3334303000],
+      ['DiamondTree, East Bend', 44.0546486,-121.26319109999997],
+      ['DiamondTree, West Bend', 44.0563942,-121.3295397],
+      ['DiamondTree, Madras', 44.6307689,-121.1295652],
+      ["Doctor's Orders, Portland", 45.5475629,-122.578406500],
+      ["Dr Jolly's, Bend", 44.0461056,-121.30283859999997],
+      ['Fireside Dispensary, Medford', 42.280653,-122.822181099],
+      ['Foster Buds, Portland', 45.4940145,-122.6058385999999],
+      ['Glisan Buds, Portland', 45.52664619999999,-122.588458],
+      ['Gras Cannabis, Portland', 45.5183928,-122.6590481],
+      ['Greeley Gallery, Portland', 45.5701308,-122.69541320000],
+      ['Green Gratitude, Portland', 45.4895484,-122.556568799999],
+      ['Green Mart, Beaverton', 45.5026504,-122.8080466999999],
+      ['Green Oasis, Portland', 45.4645721,-122.65520670000001],
+      ['Green Valley Wellness, Talent',42.2456585,-122.7845697999],
+      ['Herbal Grasslands, Salem', 44.8855365,-123.03178200000],
+      ['Hi Cascade, Salem', 44.8817733,-123.02927629999999],
+      ['Hi Cascade, Portland', 45.4895806,-122.5493424],
+      ['High Grade Organics, Bend', 44.0493989,-121.3033163],
+      ['High Winds Cannabis, Hood River', 45.708800,-121.53708080],
+      ['HiJinx Cannabis Co, Medford', 42.2830792,-122.82632460000],
+      ['HomeGrown Oregon, Salem', 44.9679825,-123.03138050000001],
+      ['Hood River Naturals, Hood River', 45.711792,-121.52268909],
+      ['House of Leaves, Ashland', 42.2052011,-122.720018299999],
+      ['JAYNE, Portland', 45.5387499,-122.66200019999997],
+      ['Kings of Canna, Portland', 45.5556554,-122.65041050000],
+      ['La Mota, SE Portland',45.46928030000001,-122.6102166],
+      ['La Mota, NE Portland', 45.558984,-122.56099460000001],
+      ['Left Coast Connection, Portland', 45.52666,-122.5596497],
+      ['Local Herb, Portland', 45.5039072,-122.49877040000001],
+      ['Madrone Cannabis Club, Ashland', 42.184441,-122.65545400],
+      ['Miracle Greens, Bend', 44.0414117,-121.3033595],
+      ['Mt Hood Rec Center, Rhododendron', 45.3269554,-121.90921],
+      ['OG Collective, Salem',44.9692418,-122.9920108 ],
+      ['OG Collective, Salem', 44.9037938,-123.04155330000003],
+      ['Oregon Euphorics, Bend', 44.0510487,-121.33018140000001],
+      ['Oregon Weedery, Portland', 45.5289259,-122.69897730000002],
+      ['OreGrown, Bend', 44.0616641,-121.31164810000001],
+      ['Pacific Green, Portland', 45.5624937,-122.65843130000002],
+      ['Paradise Found, Portland', 45.5336366,-122.6580227],
+      ['Parlour Cannabis Shop, Portland', 45.485781,-122.7497779],
+      ['Phresh Cannabis, Forest Grove', 45.518630900,-123.097398],
+      ["Piper's Holistic Essentials", 44.9397075,-123.0176018999],
+      ["Portland's Extracts, Portland", 45.50504850,-122.64400969],
+      ['Puddle Town Organics, Portland', 45.4978913,-122.578103],
+      ['Pure Green. Portland', 45.5340102,-122.62423899999999],
+      ['River City Retail, Merlin', 42.516799,-123.4245899999],
+      ['RKO, Portland', 45.4630142,-122.63909969999997],
+      ['Rogue Valley Cannabis, Central Point', 42.40958,-122.8558],
+      ['Rogue Valley Cannabis, Ashland',42.1937315,-122.7077736],
+      ['Shango Premium Cannabis, Hillsboro', 45.50862129999999,-122.96464070000002],
+      ['Silver Stem, Portland', 45.5369292,-122.62181670000001],
+      ['SkunkRX, Gold Hill', 42.4301626,-123.1721804],
+      ['Stone Age Farmacy, Portland', 45.4986815,-122.76527420000002],
+      ['Sweet Leaf, Portland', 45.5051569,-122.538074],
+      ['Talent Health Club, Talent', 42.2377276,-122.76945109999997],
+      ['Tamerans Dispensary, Grants Pass', 42.496954,-123.370925],
+      ['The Agrestic North, Corvallis', 44.5876466,-123.25494609999998],
+      ['The Good Leaf Organic Collective, Bend', 44.092649,-121.30617999999998], 
+      ['The Gorge Green Cross, Hood River', 45.7090521,-121.51656509999998],
+      ['The Green Front, Portland', 45.526255,-122.59305799999998],
+      ['The Holistic Choice, Salem', 44.9403893,-123.04048690000],
+      ['The Human Collective, Portland', 45.4586918,-122.7088463],
+      ['Medication Station, Bend', 44.05829970000001,-121.30898309999998],
+      ['Thurman Street Collective, Portland', 45.53527589999999,-122.70057180000003],
+      ['Tokyo Starfish, Bend', 44.0516786,-121.31518189999997],
+      ['Top Shelf Cannabis, McMinville', 45.2065787,-123.1985502],
+      ['Top Shelf Medicine, Bend', 44.0595916,-121.2935483],
+      ['Top Shelf Wellness Center, Phoenix', 42.2806296,-122.81855669999999],
+      ['Treehouse Collective, Portland', 45.5277608,-122.6411546],
+      ['Tru Cannabis, Portland', 45.5352389,-122.65735619999998],
+      ['Urban Farmacy, Portland', 45.5260766,-122.60205930000001],
+      ['Westside Wellness, Aloha', 45.493513,-122.87171380000001],
+      ['']
+
+    ];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 6,
+      center: new google.maps.LatLng(45.51, -122.67),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {  
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], 
+          locations[i][2]),
+        animation: google.maps.Animation.DROP,
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+
+    google.maps.event.addListener(marker,'click',function() {
+  map.setZoom(9);
+  map.setCenter(marker.getPosition());
+  });
+    }
+  </script>
+
+
+<div id='locations'>
+<h2>Portland Location:</h2>
+  <ul>
+    <li></li>
+  </ul>
+  </p>
+  
+</div>
+  
+</body>
+</html>
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
